@@ -1,9 +1,14 @@
 import { useState } from "react";
+import type { ReactNode } from "react";
 import { toast } from "react-toastify";
 import { useStore } from "../store";
 import { AuthDialog } from "../components/AuthDialog";
 
-function MainLayout() {
+interface MainLayoutProps {
+  children?: ReactNode;
+}
+
+function MainLayout({ children }: MainLayoutProps) {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState("Error message placeholder");
   const user = useStore((state) => state.user);
@@ -50,6 +55,7 @@ function MainLayout() {
         )}
         {isAuthenticated && <span>Hello, {user?.email}</span>}
       </header>
+      <main className="container">{children}</main>
     </>
   );
 }
